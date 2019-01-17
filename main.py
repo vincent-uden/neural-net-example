@@ -25,7 +25,7 @@ def parse_output(arr):
 
 training_data = MNIST('data-set')
 
-data = training_data.load_training_in_batches(5)
+data = training_data.load_training_in_batches(1000)
 
 images, labels = data.__next__()
 images = np.array(images)
@@ -49,7 +49,7 @@ b3 = np.random.random((1, layer_sizes[3])) * 0.1 - 0.05
 learning_rate = 0.1
 
 print("Training...")
-np.set_printoptions(threshold=np.nan)
+np.set_printoptions(threshold=np.nan, suppress=True)
 for i in range(10000):
     z1 = images.dot(w1) + b1
     a1 = sigmoid(z1)
@@ -72,34 +72,8 @@ for i in range(10000):
     w2 = w2 - ((a1.T.dot(e2)) * learning_rate)
     w1 = w1 - ((images.T.dot(e1)) * learning_rate)
 
-X = images
-y = labels
-# for i in range(10000):
-#     z1 = X.dot(w1) + b1
-#     a1 = sigmoid(z1)
-#     z2 = a1.dot(w2) + b2
-#     a2 = sigmoid(z2)
-#     z3 = a2.dot(w3) + b3
-#     a3 = sigmoid(z3)
-
-#     # Back propagation
-#     C = cost(a3, y)
-#     d_C = cost_p(a3, y)
-#     e3 = d_C * sigmoid_p(z3)
-#     e2 = (e3.dot(w3.T)) * sigmoid_p(z2)
-#     e1 = (e2.dot(w2.T)) * sigmoid_p(z1)
-
-#     b3 = b3 - e3.mean(axis=0) * learning_rate
-#     b2 = b2 - e2.mean(axis=0) * learning_rate
-#     b1 = b1 - e1.mean(axis=0) * learning_rate
-
-#     w3 = w3 - (a2.T.dot(e3)) * learning_rate
-#     w2 = w2 - (a1.T.dot(e2)) * learning_rate
-#     w1 = w1 - (X.T.dot(e1))  * learning_rate
-
 print(f"y: {labels}")
 print(f"a: {a3}")
-#print(f"e: {C}")
 print(b1.shape, b2.shape, b3.shape)
 print(w1.shape, w2.shape, w3.shape)
 
